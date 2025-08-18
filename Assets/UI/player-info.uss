@@ -1,0 +1,7 @@
+:root {
+    background-color: rgb(245, 222, 179);
+}
+
+.label {
+    -unity-text-align: upper-center;
+}

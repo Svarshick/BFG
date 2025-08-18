@@ -1,6 +1,2 @@
 :root {
 }
-
-#frontInfoGoButton:hover {
-    background-color: rgb(42, 156, 44);
-}

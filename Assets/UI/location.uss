@@ -3,7 +3,7 @@
 }
 
 .location {
-    background-color: rgb(25, 185, 157);
+    background-color: rgb(107, 142, 35);
     width: 100px;
     height: 100px;
     -unity-text-align: middle-center;
@@ -11,4 +11,5 @@
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     border-bottom-left-radius: 50%;
+    color: rgb(240, 230, 140);
 }

@@ -1,7 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Template name="player-info" src="project://database/Assets/UI/Resources/player-info.uxml?fileID=9197481963319205126&amp;guid=2484756192861568089cdd4ac96bf151&amp;type=3#player-info" />
-    <Style src="project://database/Assets/UI/control-bar.uss?fileID=7433441132597879392&amp;guid=149fc83c48182a3b18e352c99d5dbfc1&amp;type=3#control-bar" />
-    <ui:Label text="День" name="currentDay" />
-    <ui:Button text="Пропустить день" name="skipDay" />
-    <ui:Instance template="player-info" name="playerInfo" style="right: 0; position: absolute;" />
+    <Style src="project://database/Assets/UI/control-bar.uss?fileID=7433441132597879392&amp;guid=149fc83c48182a3b18e352c99d5dbfc1&amp;type=3" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=b55f332866f0b8e00b45f6d6b88fa781&amp;type=3#common" />
+    <ui:Label text="День" name="currentDay" class="currentDay" />
+    <ui:Button text="Пропустить день" name="skipDay" class="skipDay button" />
+    <ui:Instance template="player-info" name="playerInfo" class="playerInfo" />
 </ui:UXML>

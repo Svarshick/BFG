@@ -1,0 +1,10 @@
+:root {
+}
+
+.button {
+    background-color: rgb(245, 222, 179);
+}
+
+.button:hover {
+    background-color: rgb(255, 127, 80);
+}

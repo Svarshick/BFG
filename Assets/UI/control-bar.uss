@@ -1,3 +1,18 @@
 :root {
     flex-direction: row;
+    background-color: rgb(184, 134, 11);
+}
+
+.skipDay {
+    width: 30%;
+}
+
+.currentDay {
+    width: 15%;
+}
+
+.playerInfo {
+    width: 50%;
+    position: absolute;
+    right: 2%;
 }

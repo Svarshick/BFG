@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="control-bar" src="project://database/Assets/UI/Resources/control-bar.uxml?fileID=9197481963319205126&amp;guid=c1013f6f082d537628be248d3e31ad4c&amp;type=3#control-bar" />
     <ui:Template name="location" src="project://database/Assets/UI/Resources/location.uxml?fileID=9197481963319205126&amp;guid=39efe0518a5a80e3e8a476453aa3f68e&amp;type=3#location" />
-    <ui:Template name="control-bar" src="project://database/Assets/UI/Resources/control-bar.uxml?fileID=9197481963319205126&amp;guid=c1013f6f082d537628be248d3e31ad4c&amp;type=3" />
     <Style src="project://database/Assets/UI/world-map.uss?fileID=7433441132597879392&amp;guid=79083214ba16292ffa0b4bf47853e301&amp;type=3#world-map" />
     <ui:Instance template="control-bar" name="controlBar" />
     <ui:VisualElement name="locations" style="flex-grow: 1;">
-        <ui:Instance template="location" name="location0" style="flex-shrink: 1; left: 20%;" />
+        <ui:Instance template="location" name="location0" style="flex-shrink: 1; left: 20%; top: 5%;" />
         <ui:Instance template="location" name="location1" style="right: auto; left: 60%; bottom: auto; top: 10%;" />
         <ui:Instance template="location" name="location2" style="top: 60%; left: 10%;" />
         <ui:Instance template="location" name="location3" style="left: 50%; top: 40%;" />

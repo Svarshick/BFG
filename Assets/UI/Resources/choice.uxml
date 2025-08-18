@@ -1,3 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Button text="Button" name="choiceButton" />
+    <Style src="project://database/Assets/UI/common.uss?fileID=7433441132597879392&amp;guid=b55f332866f0b8e00b45f6d6b88fa781&amp;type=3#common" />
+    <ui:Button text="Button" name="choiceButton" class="button" />
 </ui:UXML>

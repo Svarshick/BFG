@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/location-info.uss?fileID=7433441132597879392&amp;guid=b1ddeae8b8a094336bff47edaa150c3e&amp;type=3#location-info" />
-    <ui:Label text="Label" name="locationInfoLabel" style="flex-shrink: 1; -unity-text-align: upper-center;" />
+    <ui:Label text="Че делать" name="locationInfoLabel" style="-unity-text-align: upper-center;" />
     <ui:VisualElement name="frontInfoList" style="flex-grow: 1;" />
 </ui:UXML>

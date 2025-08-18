@@ -2,5 +2,5 @@
     position: absolute;
     width: 150px;
     height: auto;
-    background-color: rgb(122, 209, 217);
+    background-color: rgb(184, 134, 11);
 }

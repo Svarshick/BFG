@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/playerTags.uss?fileID=7433441132597879392&amp;guid=007bc881e37426813a35386ec2c9fd0e&amp;type=3#playerTags" />
-    <ui:Label text="Статы:" />
+    <Style src="project://database/Assets/UI/player-info.uss?fileID=7433441132597879392&amp;guid=6058e69f512dca5bb96252cc6bbcfa15&amp;type=3#player-info" />
+    <ui:Label text="Статы:" name="label" class="label" />
     <ui:ScrollView name="playerTags" style="display: none;" />
 </ui:UXML>
