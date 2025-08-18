@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/playerTags.uss?fileID=7433441132597879392&amp;guid=007bc881e37426813a35386ec2c9fd0e&amp;type=3#playerTags" />
+    <ui:Label text="Статы:" />
+    <ui:ScrollView name="playerTags" style="display: none;" />
+</ui:UXML>

@@ -1,0 +1,6 @@
+:root {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    background-color: rgb(122, 209, 217);
+}

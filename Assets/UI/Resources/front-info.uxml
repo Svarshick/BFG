@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/front-info.uss?fileID=7433441132597879392&amp;guid=95f9177c9711abb2badffdbd95a86af8&amp;type=3#front-info" />
+    <ui:Button text="Button" name="frontInfoGoButton" />
+</ui:UXML>

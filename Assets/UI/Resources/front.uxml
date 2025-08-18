@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="control-bar" src="project://database/Assets/UI/Resources/control-bar.uxml?fileID=9197481963319205126&amp;guid=c1013f6f082d537628be248d3e31ad4c&amp;type=3#control-bar" />
+    <Style src="project://database/Assets/UI/front.uss?fileID=7433441132597879392&amp;guid=bfda1bd88b8266a02a616839370d9b2e&amp;type=3#front" />
+    <ui:Instance template="control-bar" name="controlBar" />
+    <ui:Label text="Описание фронта" name="frontLabel" />
+    <ui:VisualElement name="frontChoiceList" style="flex-grow: 1; justify-content: center;" />
+</ui:UXML>

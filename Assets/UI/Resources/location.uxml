@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/location.uss?fileID=7433441132597879392&amp;guid=720fe098e820ea07d84699e338c42c2e&amp;type=3#location" />
+    <ui:Label text="Локация" name="locationLabel" class="location" />
+</ui:UXML>
