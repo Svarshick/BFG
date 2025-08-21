@@ -7,5 +7,6 @@ namespace ECS
     public struct QQueue : IComponent
     {
         public Queue<IQ> value;
+        public QBuffer buffer;
     }
 }

@@ -5,19 +5,17 @@ namespace Core.Query
 {
     public class QBuffer
     {
-        private Queue<IQ> _buffer = new();
-
-        public QBuffer() { }
+        private Queue<IQ> _qQueue = new();
         
         public void Query(IQ q)
         {
-            _buffer.Enqueue(q);
+            _qQueue.Enqueue(q);
         }
 
         public Queue<IQ> Fetch()
         {
-            var oldBuffer = _buffer;
-            _buffer = new ();
+            var oldBuffer = _qQueue;
+            _qQueue = new ();
             return oldBuffer;
         }
     }

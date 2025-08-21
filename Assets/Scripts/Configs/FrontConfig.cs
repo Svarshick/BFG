@@ -24,7 +24,7 @@ namespace Configs
     public class FrontConfig : ScriptableObject
     {
         [SerializeField] public string frontName;
-        [SerializeField] public int day;
+        [SerializeField] public int awakeningDay;
         [SerializeField] public Location location;
         [SerializedDictionary("Tag", "Value")] public SerializedDictionary<Tag, bool> requirements;
 

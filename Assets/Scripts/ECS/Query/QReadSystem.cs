@@ -6,14 +6,8 @@ namespace ECS
     public class QReadSystem : ISystem
     {
         public World World { get; set; }
-        private QBuffer _qBuffer;
         private Entity _qQueue;
         private Stash<QQueue> _qQueueStash;
-
-        public QReadSystem(QBuffer qBuffer)
-        {
-            _qBuffer = qBuffer;
-        }
         
         public void OnAwake()
         {
@@ -25,8 +19,8 @@ namespace ECS
         
         public void OnUpdate(float deltaTime)
         {
-            ref var qQueueCmp = ref _qQueueStash.Get(_qQueue);
-            qQueueCmp.value = _qBuffer.Fetch();
+            ref var qQueueComp = ref _qQueueStash.Get(_qQueue);
+            qQueueComp.value = qQueueComp.buffer.Fetch();
         }
         
         public void Dispose() { }

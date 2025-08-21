@@ -3,7 +3,7 @@ using Core;
 using DataBinding;
 using R3;
 using UI.ControlBar;
-using UnityEngine;
+using UI.Front.Choice;
 using UnityEngine.UIElements;
 using VContainer;
 
@@ -14,6 +14,7 @@ namespace UI.Front
         private readonly FrontViewModel _viewModel;
         private readonly UIEventAggregator _uiEventAggregator;
         private readonly ControlBarFactory _controlBarFactory;
+        private readonly ChoiceFactory _choiceFactory;
 
         private Label _frontLabel;
         private VisualElement _choiceList;
@@ -33,6 +34,7 @@ namespace UI.Front
             _viewModel = viewModel;
             _uiEventAggregator = uiEventAggregator;
             _controlBarFactory = objectResolver.Resolve<ControlBarFactory>();
+            _choiceFactory = objectResolver.Resolve<ChoiceFactory>();
         }
 
         protected override void SetVisualElements()
@@ -58,15 +60,7 @@ namespace UI.Front
             _choiceList.Clear();
             foreach (var choice in frontView.Stage.Choices)
             {
-                var button = new Button();
-                button.text = choice.Text;
-                button.RegisterCallback<ClickEvent>(evt =>
-                {
-                    _viewModel.GameLogicMediator.MakeChoice(frontObserver, choice);
-                    _viewModel.GameLogicMediator.EndDay();
-                    _uiEventAggregator.EndFront();
-                });
-                _choiceList.Add(button);
+                var choiceView = _choiceFactory.Create(frontObserver, choice, _choiceList);
             }
         }
 

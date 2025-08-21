@@ -10,7 +10,7 @@ namespace UI.ControlBar
         private readonly DataViewStorage _dataViewStorage;
         public readonly GameLogicMediator GameLogicMediator;
 
-        public ObservableDictionary<Tag, bool> PlayerTags => _dataViewStorage.PlayerTags;
+        public ObservableHashSet<Tag> PlayerTags => _dataViewStorage.PlayerTags;
         public ReactiveProperty<GameWorldDataView> GameWorld => _dataViewStorage.GameWorld;
 
         public ControlBarViewModel(

@@ -1,115 +1,108 @@
 using System;
 using System.Collections.Generic;
 using Configs;
-using ECS.GameEntity;
-using ECS.GameWorld;
+using Core.Query;
+using DataBinding;
+using ECS.GW;
+using ECS.Player;
+using ObservableCollections;
 using Scellecs.Morpeh;
-using UnityEditor.U2D.Aseprite;
 using VContainer.Unity;
-using DataViewStorage = ECS.DataView.DataViewStorage;
+using Location = Configs.Location;
 
 namespace ECS
 {
     public class EntitiesInitializer : IInitializable
     {
         private readonly World _world;
+        private readonly QBuffer _qBuffer;
         private readonly FrontConfigSet _frontConfigSet;
-        private readonly GameWorldInitConfig _gameWorldInitConfig;
-        private readonly DataBinding.DataViewStorage _dataViewStorage;
+        private readonly GameInitConfig _gameInitConfig;
 
         public EntitiesInitializer(
             World world, 
+            QBuffer qBuffer,
             FrontConfigSet frontConfigSet,
-            GameWorldInitConfig gameWorldInitConfig,
-            DataBinding.DataViewStorage dataViewStorage
+            GameInitConfig gameInitConfig
             )
         {
             _world = world;
+            _qBuffer = qBuffer;
             _frontConfigSet = frontConfigSet;
-            _gameWorldInitConfig = gameWorldInitConfig;
-            _dataViewStorage = dataViewStorage;
+            _gameInitConfig = gameInitConfig;
         }
 
-        private Dictionary<Tag, bool> dirtyHack;
-        
+        //todo I don't like it
+        private ObservableHashSet<Tag> _playerTags;
+
         public void Initialize()
         {
             InitQQueue();
-            InitDataViewStorage();
             InitPlayer();
             InitGameWorld();
-            InitFronts();
-            InitFrontReverseView();
             _world.Commit();
         }
-
+        
         private void InitQQueue()
         {
             var qQueue = _world.CreateEntity();
             var qQueueStash = _world.GetStash<QQueue>();
-            qQueueStash.Add(qQueue);
+            qQueueStash.Add(qQueue, new QQueue { buffer = _qBuffer });
         }
         
-        private void InitFronts()
-        {
-            var frontStash = _world.GetStash<Front>();
-            var activeStash = _world.GetStash<Active>();
-            foreach (var frontConfig in _frontConfigSet.fronts)
-            {
-                var front = _world.CreateEntity();
-                var frontComp = new Front {config = frontConfig};
-                frontStash.Add(front, frontComp);
-                if (frontConfig.day == 0 && RequirementsMet(frontComp, dirtyHack))
-                    activeStash.Add(front);
-            }
-        }
-        
-        public static bool RequirementsMet(Front frontComp, Dictionary<Tag, bool> dirtyTags)
-        {
-            foreach (var pare in frontComp.config.requirements)
-            {
-                if (dirtyTags[pare.Key] != pare.Value)
-                    return false;
-            }
-            return true;
-        }
-
-        private void InitFrontReverseView()
-        {
-            var frontReverseView = _world.CreateEntity();
-            var frontReverseViewStash = _world.GetStash<FrontReverseView>();
-            frontReverseViewStash.Add(frontReverseView, new FrontReverseView {value = new()});
-        }
-
-        private void InitDataViewStorage()
-        {
-            var dataViewStorage = _world.CreateEntity();
-            var dataViewStorageStash = _world.GetStash<DataViewStorage>();
-            dataViewStorageStash.Add(dataViewStorage, new DataViewStorage {value = _dataViewStorage});
-        }
-
         private void InitPlayer()
         {
-            var player = _world.CreateEntity();
             var taggedStash = _world.GetStash<Tagged>();
-            var tagsDictionary = new Dictionary<Tag, bool>();
-            var tags = Enum.GetValues(typeof(Tag));
-            foreach (Tag tag in tags)
+            var player =  _world.CreateEntity();
+            var tagsSet = new HashSet<Tag>();
+            foreach (var tag in _gameInitConfig.playerTags)
             {
-                if (_gameWorldInitConfig.playerTags.TryGetValue(tag, out var value))
-                    tagsDictionary[tag] = value;
-                else
-                    tagsDictionary[tag] = false;
+                tagsSet.Add(tag);
             }
-            taggedStash.Add(player, new Tagged { value = new(tagsDictionary) });
-            dirtyHack = tagsDictionary;
-        }
 
+            ref var playerTags = ref taggedStash.Add(player);
+            playerTags.value = new(tagsSet);
+            _playerTags = playerTags.value;
+        }
+        
         private void InitGameWorld()
         {
             var gameWorld = _world.CreateEntity();
-            var gameWorldStash = _world.GetStash<GameWorld.GameWorld>();
-            gameWorldStash.Add(gameWorld, new GameWorld.GameWorld {day = 0});
+            var gameWorldStash = _world.GetStash<GameWorld>();
+            ref var gameWorldComp = ref gameWorldStash.Add(gameWorld);
+            gameWorldComp.day = 0;
+            gameWorldComp.view = new(new GameWorldDataView {Day = 1});
+            gameWorldComp.frontsView = new();
+            gameWorldComp.reverseFrontMapping = new();
+            gameWorldComp.currentFront = new();
+
+            //todo what to do with naming Location as enum and Location as component...
+            var locationStash = _world.GetStash<GW.Location>();
+            var locations = new Dictionary<Location, Entity>();
+            foreach (Location location in Enum.GetValues(typeof(Location)))
+            {
+                var locationEntity = _world.CreateEntity();
+                locations[location] = locationEntity;
+                locationStash.Add(locationEntity, new GW.Location { value = location, fronts = new() });
+            }
+
+            var frontStash = _world.GetStash<Front>();
+            var activeStash = _world.GetStash<Active>();
+            foreach (var frontConfig in _frontConfigSet.value)
+            {
+                var front = _world.CreateEntity();
+                ref var frontComp = ref frontStash.Add(front);
+                frontComp.config = frontConfig;
+                var frontView = FrontUtils.AddFrontView(ref frontComp, ref gameWorldComp, ref front);
+                if (frontConfig.awakeningDay == 0 &&
+                    FrontUtils.RequirementsMet(_playerTags, frontConfig.requirements))
+                {
+                    activeStash.Add(front);
+                    //todo Getting stash...
+                    var locationComp = locationStash.Get(locations[frontConfig.location]);
+                    locationComp.fronts.Add(frontView);
+                }
+            }
         }
     }
 }

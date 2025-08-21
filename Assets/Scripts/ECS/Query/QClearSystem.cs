@@ -18,8 +18,8 @@ namespace ECS
         
         public void OnUpdate(float deltaTime)
         {
-            ref var qQueueCmp = ref _qQueueStash.Get(_qQueue);
-            qQueueCmp.value.Clear();
+            ref var qQueueComp = ref _qQueueStash.Get(_qQueue);
+            qQueueComp.value.Clear();
         }
         
         public void Dispose() { }

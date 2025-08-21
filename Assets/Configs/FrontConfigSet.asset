@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3176e24a2d04550879ea583504ab107, type: 3}
   m_Name: FrontConfigSet
   m_EditorClassIdentifier: Assembly-CSharp::Configs.FrontConfigSet
-  fronts:
+  value:
   - {fileID: 11400000, guid: 5a7588ea622a9dde69dddf59eb72021b, type: 2}
-  - {fileID: 11400000, guid: 6991299af7c4a1f349d9e6aef849a5bb, type: 2}
-  - {fileID: 11400000, guid: 3c2199b0068fd7aceb089c7d69552466, type: 2}
-  - {fileID: 11400000, guid: fede65cce6c51241986c6cd47745e16f, type: 2}
+  - {fileID: 11400000, guid: f3949464c61e11a67ad256c5819d0991, type: 2}
+  - {fileID: 11400000, guid: 5cc4f56f5519b82ec944cb1c98f08ba0, type: 2}

@@ -17,7 +17,7 @@ namespace UI.ControlBar
         private Label _currentDay;
         private VisualElement _playerInfo;
         private ScrollView _playerTags;
-        private ISynchronizedView<KeyValuePair<Tag, bool>, Label> _playerTagsView;
+        private ISynchronizedView<Tag, Label> _playerTagsView;
 
         public ControlBarView(
             ControlBarViewModel viewModel,
@@ -40,20 +40,12 @@ namespace UI.ControlBar
         protected override void BindViewData()
         {
             _viewModel.GameWorld.Subscribe(n => _currentDay.text = "день: " + n.Day.ToString());
-            //todo should be new view
-            _playerTagsView = _viewModel.PlayerTags.CreateView(pare =>
+            _playerTagsView = _viewModel.PlayerTags.CreateView(tag =>
             {
-                if (!pare.Value) 
-                    return null;
                 var label = new Label();
-                label.text = pare.Key.ToString();
+                label.text = tag.ToString();
                 _playerTags.Add(label);
                 return label;
-            });
-            _playerTagsView.ObserveReplace().Subscribe(evt =>
-            {
-                if (evt.OldValue.View != null)
-                    _playerTags.Remove(evt.OldValue.View);
             });
             _playerTagsView.ObserveRemove().Subscribe(evt =>
             {

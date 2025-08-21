@@ -153,7 +153,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   frontConfigSet: {fileID: 11400000, guid: ea945560af6d7c49fa78d3a0c74814d8, type: 2}
-  worldInitConfig: {fileID: 11400000, guid: 416e7e6f3192c431cb92f0d8bfc8a71b, type: 2}
+  initConfig: {fileID: 11400000, guid: ce837ce0d3676326ca1291679bc15a65, type: 2}
   worldMap: {fileID: 785390317}
   front: {fileID: 1681659612}
   gameLogicMediator: {fileID: 2097822868}
