@@ -52,8 +52,6 @@ namespace UI.ControlBar
                 if (evt.Value.View != null)
                     _playerTags.Remove(evt.Value.View);
             });
-            //todo crack
-            //_playerTagsView.AttachFilter(pare => pare.Value);
         }
         
         protected override void RegisterInputCallbacks()

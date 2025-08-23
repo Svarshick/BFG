@@ -76,48 +76,47 @@ namespace ECS.GW
 
         private void EndDay(EndDayQ q)
         {
-            ShiftFronts();
-            AwakeFronts();
             ref var gameWorldComp = ref _gameWorldStash.Get(_gameWorld);
+            ref var playerTags = ref _taggedStash.Get(_player);
+            //todo I don't want parameters here. At least it should be inline instead of calling
+            ShiftFronts(ref gameWorldComp, ref playerTags);
+            AwakeFronts(ref gameWorldComp, ref playerTags);
             gameWorldComp.day += 1;
             gameWorldComp.view.Value = new GameWorldDataView { Day = gameWorldComp.day + 1 };
-        }
+            return;
 
-        private void ShiftFronts()
-        {
-            ref var gameWorldComp = ref _gameWorldStash.Get(_gameWorld);
-            ref var playerTags = ref _taggedStash.Get(_player);
-            foreach (var front in _activeFrontFilter)
+            void ShiftFronts(ref GameWorld gameWorldComp, ref Tagged playerTags)
             {
-                ref var frontComp = ref _frontStash.Get(front);
-                var nextStageNumber = gameWorldComp.day + 1 - frontComp.config.awakeningDay;
-                if (nextStageNumber < frontComp.config.stages.Count)
+                foreach (var front in _activeFrontFilter)
                 {
-                    frontComp.view.Value = FrontUtils.CreateFrontView(frontComp, nextStageNumber);
-                }
-                else
-                {
-                    FrontUtils.Affect(playerTags.value, frontComp.config.fiascoEffect);
-                    _activeStash.Remove(front);
-                    var locationComp = _locationStash.Get(_locations[frontComp.config.location]);
-                    locationComp.fronts.Remove(frontComp.view);
+                    ref var frontComp = ref _frontStash.Get(front);
+                    var nextStageNumber = gameWorldComp.day + 1 - frontComp.config.awakeningDay;
+                    if (nextStageNumber < frontComp.config.stages.Count)
+                    {
+                        frontComp.view.Value = FrontUtils.CreateFrontView(frontComp, nextStageNumber);
+                    }
+                    else
+                    {
+                        FrontUtils.Affect(playerTags.value, frontComp.config.fiascoEffect);
+                        _activeStash.Remove(front);
+                        var locationComp = _locationStash.Get(_locations[frontComp.config.location]);
+                        locationComp.fronts.Remove(frontComp.view);
+                    }
                 }
             }
-        }
-        
-        private void AwakeFronts()
-        {
-            ref var gameWorldComp = ref _gameWorldStash.Get(_gameWorld);
-            ref var playerTags = ref _taggedStash.Get(_player);
-            foreach (var front in _inactiveFrontFilter)
+            
+            void AwakeFronts(ref GameWorld gameWorldComp, ref Tagged playerTags)
             {
-                ref var frontComp = ref _frontStash.Get(front);
-                if (frontComp.config.awakeningDay == gameWorldComp.day + 1 &&
-                    FrontUtils.RequirementsMet(playerTags.value, frontComp.config.requirements))
+                foreach (var front in _inactiveFrontFilter)
                 {
-                    _activeStash.Add(front);
-                    ref var locationComp = ref _locationStash.Get(_locations[frontComp.config.location]);
-                    locationComp.fronts.Add(frontComp.view);
+                    ref var frontComp = ref _frontStash.Get(front);
+                    if (frontComp.config.awakeningDay == gameWorldComp.day + 1 &&
+                        FrontUtils.RequirementsMet(playerTags.value, frontComp.config.requirements))
+                    {
+                        _activeStash.Add(front);
+                        ref var locationComp = ref _locationStash.Get(_locations[frontComp.config.location]);
+                        locationComp.fronts.Add(frontComp.view);
+                    }
                 }
             }
         }
