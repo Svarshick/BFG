@@ -17,15 +17,10 @@ using VContainer.Unity;
 
 namespace Core
 {
-    public enum UIType
-    {
-        WorldMap,
-        Front
-    }
     public class GameLifeTimeScope : LifetimeScope
     {
         [SerializeField] private FrontConfigSet frontConfigSet;
-        [FormerlySerializedAs("worldInitConfig")] [SerializeField] private GameInitConfig initConfig;
+        [SerializeField] private GameInitConfig initConfig;
         [SerializeField] private UIDocument worldMap;
         [SerializeField] private UIDocument front;
         [SerializeField] private GameLogicMediator gameLogicMediator;

@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/main-menu.uss?fileID=7433441132597879392&amp;guid=3756a6a5c330d691886f18e46d84377b&amp;type=3#main-menu" />
+    <ui:Button text="Начать православную игру" name="startGameButton" />
+</ui:UXML>
